@@ -1,0 +1,20 @@
+.footer {
+  background-color: #111827; /* رمادي غامق */
+  color: #f9fafb; /* فاتح */
+  padding: 20px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+
+  display: flex;
+  justify-content: center; /* يوسّط المحتوى */
+  align-items: center;     /* يوسّط عمودي */
+}
+
+.copy {
+  font-size: 14px;
+  text-align: center; /* يخلي النص نفسه في النص */
+}

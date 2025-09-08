@@ -1,0 +1,38 @@
+.notfound {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  background-color: #f9fafb;
+  color: #111827;
+}
+
+.title {
+  font-size: 6rem;
+  font-weight: bold;
+  color: #ef4444; /* أحمر */
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+  color: #4b5563; /* رمادي */
+}
+
+.homeLink {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3b82f6; /* أزرق */
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.homeLink:hover {
+  background-color: #2563eb; /* أزرق أغمق */
+}
