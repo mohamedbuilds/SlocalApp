@@ -27,10 +27,11 @@ export function MyNavbar() {
       },
     });
   }
-
+let token = localStorage.getItem("token");
   let { data, isLoading, isError, error } = useQuery({
     queryKey: ["userProfile"],
     queryFn: getuserprofile,
+    enabled: !!token,
   });
 
   if (isLoading) {
