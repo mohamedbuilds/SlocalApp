@@ -17,6 +17,7 @@ export default function PostContextProvider(props) {
           },
         }
       );
+      queryClient.invalidateQueries({queryKey: ['allPost']})
       return response.data;
     } catch (error) {
       console.log(error);
