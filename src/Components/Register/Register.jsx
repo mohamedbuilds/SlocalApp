@@ -5,7 +5,7 @@ import { zodResolver } from "./../../../node_modules/@hookform/resolvers/zod/src
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Register() {
   let navigate = useNavigate();
@@ -211,6 +211,15 @@ export function Register() {
               "Submit"
             )}
           </button>
+          <p className="text-center text-sm text-gray-300 mt-4">
+            Already have an account?
+            <Link
+              to="/login"
+              className="text-cyan-400 hover:text-cyan-300 font-semibold"
+            >
+              Login
+            </Link>
+          </p>
         </form>
       </Card>
     </div>
