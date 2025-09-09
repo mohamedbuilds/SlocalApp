@@ -7,8 +7,10 @@ import { toast } from "react-toastify";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function Login() {
+  let queryClient = useQueryClient();
   let navigate = useNavigate();
   let { setuser } = useContext(UserContext);
   const [loading, setloading] = useState(false);
@@ -43,8 +45,9 @@ export function Login() {
       if (response.data.message == "success") {
         toast.success(response.data.message);
         localStorage.setItem("token", response.data.token);
-        setuser(response.data.token)
+        setuser(response.data.token);
         navigate("/");
+        queryClient.invalidateQueries({ queryKey: ["allPost"] });
       }
     } catch (error) {
       setloading(false);
@@ -116,7 +119,7 @@ export function Login() {
               "Login"
             )}
           </button>
-           <p className="text-center text-sm text-gray-300 mt-4">
+          <p className="text-center text-sm text-gray-300 mt-4">
             Don’t have an account?{" "}
             <Link
               to="/register"
