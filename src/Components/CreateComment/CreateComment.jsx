@@ -42,6 +42,7 @@ export function CreateComment({ idess }) {
       setload(true);
       await CreateCommentProfile(values);
       queryClient.invalidateQueries({ queryKey: ["userPost"] });
+           setOpenModal(false);
     } catch (error) {
       setload(false);
       console.log(error);
@@ -54,50 +55,69 @@ export function CreateComment({ idess }) {
     setEmail("");
   }
 
-  return (
-    <>
-      <Button className="bg-blue-600  cursor-pointer hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg shadow-md transition-all duration-200">
-        💬 Create Comment
-      </Button>
-      <Modal  show={openModal} size="md" onClose={onCloseModal} popup>
-        <ModalHeader />
-        <ModalBody>
-          <div className="space-y-6">
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-              Creat Comment
-            </h3>
-            <form onSubmit={handleSubmit(handleCreatPost)}>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="content">Your email</Label>
-                </div>
-                <input
-                  {...register("content")}
-                  id="content"
-                  placeholder="text here"
-                />
-                {formState.errors.content && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {formState.errors.content.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                <div className="mb-2 block"></div>
-                <input hidden id="post" type="text" {...register("post")} />
-                {formState.errors.post && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {formState.errors.post.message}
-                  </p>
-                )}
-              </div>
-              <Button type="submit" className="mt-4">
-                {load ? "Loading..........." : "Creat Comment"}
-              </Button>
-            </form>
-          </div>
-        </ModalBody>
-      </Modal>
-    </>
-  );
+return (
+  <>
+    <Button
+      onClick={() => setOpenModal(true)}
+      className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg shadow-md transition-all duration-200"
+    >
+      💬 Create Comment
+    </Button>
+
+    <Modal show={openModal} size="md" onClose={onCloseModal} popup>
+      <ModalHeader />
+      <ModalBody className="bg-gray-800 rounded-lg p-6">
+        <div className="space-y-6">
+          <h3 className="text-xl font-medium text-white text-center">
+            Create Comment
+          </h3>
+
+          <form onSubmit={handleSubmit(handleCreatPost)} className="flex flex-col gap-4">
+            {/* محتوى التعليق */}
+            <div className="flex flex-col">
+              <Label htmlFor="content" className="mb-1 text-white">
+                Comment
+              </Label>
+              <input
+                {...register("content")}
+                id="content"
+                placeholder="Write your comment..."
+                className="border border-gray-600 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-white bg-gray-700"
+              />
+              {formState.errors.content && (
+                <p className="text-red-500 text-sm mt-1">
+                  {formState.errors.content.message}
+                </p>
+              )}
+            </div>
+
+            {/* حقل البوست المخفي */}
+            <div>
+              <input
+                hidden
+                id="post"
+                type="text"
+                {...register("post")}
+              />
+              {formState.errors.post && (
+                <p className="text-red-500 text-sm mt-1">
+                  {formState.errors.post.message}
+                </p>
+              )}
+            </div>
+
+            {/* زر الإرسال */}
+            <Button
+              type="submit"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg shadow-md transition-all duration-200 flex justify-center"
+            >
+              {load ? "⏳ Loading..." : "Create Comment"}
+            </Button>
+          </form>
+        </div>
+      </ModalBody>
+    </Modal>
+  </>
+);
+
 }

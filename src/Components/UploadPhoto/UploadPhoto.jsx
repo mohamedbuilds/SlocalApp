@@ -46,6 +46,7 @@ export function UploadPhoto() {
 
       if (response.data.message === "success") {
         toast.success("Photo updated successfully!");
+        queryClient.invalidateQueries({ queryKey: ["loggedUserData"] });
         queryClient.invalidateQueries({ queryKey: ["userProfile"] });
         setOpenModal(false);
       }
@@ -59,7 +60,10 @@ export function UploadPhoto() {
 
   return (
     <>
-      <Button className="bg-green-600 hover:bg-green-700 text-white font-medium cursor-pointer px-4 py-2 rounded-lg shadow-md transition-all duration-200">
+      <Button
+        onClick={() => setOpenModal(true)}
+        className="bg-green-600 hover:bg-green-700 text-white font-medium cursor-pointer px-4 py-2 rounded-lg shadow-md transition-all duration-200"
+      >
         📸 Update Photo
       </Button>
 
@@ -70,21 +74,27 @@ export function UploadPhoto() {
         popup
       >
         <ModalHeader />
-        <ModalBody>
+        <ModalBody className="bg-gray-800 rounded-lg p-6">
           <div className="space-y-6">
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+            <h3 className="text-xl font-medium text-white text-center">
               Change Photo
             </h3>
-            <form onSubmit={handleSubmit(handleChangePhoto)}>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="photo">Upload Photo</Label>
-                </div>
+
+            <form
+              onSubmit={handleSubmit(handleChangePhoto)}
+              className="flex flex-col gap-4"
+            >
+              {/* رفع الصورة */}
+              <div className="flex flex-col">
+                <Label htmlFor="photo" className="mb-1 text-white">
+                  Upload Photo
+                </Label>
                 <input
                   type="file"
                   {...register("photo")}
                   id="photo"
                   accept="image/png, image/jpeg, image/jpg"
+                  className="border border-gray-600 rounded-md p-2 text-white placeholder-white bg-gray-700"
                 />
                 {formState.errors.photo && (
                   <p className="text-red-500 text-sm mt-1">
@@ -93,8 +103,12 @@ export function UploadPhoto() {
                 )}
               </div>
 
-              <Button type="submit" className="w-full mt-4">
-                {loading ? "Uploading..." : "Change Photo"}
+              {/* زر الإرسال */}
+              <Button
+                type="submit"
+                className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg shadow-md transition-all duration-200 flex justify-center"
+              >
+                {loading ? "⏳ Uploading..." : "Change Photo"}
               </Button>
             </form>
           </div>

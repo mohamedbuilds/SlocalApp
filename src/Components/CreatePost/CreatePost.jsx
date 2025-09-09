@@ -15,9 +15,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-
-
-
 const postSchema = z.object({
   body: z
     .string()
@@ -42,15 +39,8 @@ const postSchema = z.object({
     ),
 });
 
-
-
-
-
-
-
-
-
 export function CreatePost() {
+  const [loads, setloads] = useState(false)
   let { createPost } = useContext(PostContext);
 
   let form = useForm({
@@ -66,8 +56,16 @@ export function CreatePost() {
   const [openModal, setOpenModal] = useState(false);
   const [email, setEmail] = useState("");
 
-  function handleCreatPost(values) {
-    createPost(values);
+async  function handleCreatPost(values) {
+  try {
+    setloads(true)
+    await createPost(values);
+     setOpenModal(false);
+  } catch (error) {
+    setloads(false)
+  }finally{
+    setloads(false)
+  }
   }
   function onCloseModal() {
     setOpenModal(false);
@@ -76,7 +74,10 @@ export function CreatePost() {
 
   return (
     <>
-      <Button className="text-black" onClick={() => setOpenModal(true)}>
+      <Button
+        className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={() => setOpenModal(true)}
+      >
         Create Post
       </Button>
       <Modal show={openModal} size="md" onClose={onCloseModal} popup>
@@ -113,8 +114,11 @@ export function CreatePost() {
                   </p>
                 )}
               </div>
-              <Button type="submit" className="mt-4">
-                Submit
+              <Button
+                className="bg-blue-600  mt-4 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                type="submit"
+              >
+                {loads ? "⏳" : "Submit"}
               </Button>
             </form>
           </div>

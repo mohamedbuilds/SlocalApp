@@ -40,10 +40,10 @@ export default function Profil() {
         Error: {error.message}
       </div>
     );
-  console.log(data);
+
 
   const user = data.user;
-  console.log(user);
+
 
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-6 pt-20">

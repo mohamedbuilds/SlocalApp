@@ -7,9 +7,13 @@ import { MyNavbar } from "../Navbar/MyNavbar";
 export default function Layout() {
   return (
    <>
+    <div className="flex flex-col min-h-screen">
       <MyNavbar />
-      <Outlet />
+      <main className="flex-1">
+        <Outlet />
+      </main>
       <Footer />
+    </div>
    </>
   );
 }
